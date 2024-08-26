@@ -13,7 +13,7 @@ export default class extends Controller {
     newCell.textContent = itemValue
     newCell.setAttribute("data-totalisr-target", "item")
     newCell = newRow.insertCell(2)
-    newCell.innerHTML = "<button data-action='click->totalisr#removeItem'>Remove</button>"
+    newCell.innerHTML = "<button data-action='click->totalisr#removeItem'>Remove</button> <button data-action='click->totalisr#editItem'>Edit</button>"
     this.calculate()
   }
 
@@ -43,6 +43,18 @@ export default class extends Controller {
 
   removeItem(event) {
     event.srcElement.parentElement.parentElement.remove()
+    this.calculate()
+  }
+
+  editItem(event) {
+    var row = event.srcElement.parentElement.parentElement
+
+    this.newItemNameTarget.value = row.cells[0].textContent
+    this.newItemValueTarget.value = row.cells[1].textContent
+
+    row.remove()
+    this.newItemNameTarget.focus()
+
     this.calculate()
   }
 }
