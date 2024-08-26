@@ -1,7 +1,7 @@
 import { Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
 
 export default class extends Controller {
-  static targets = ["item", "total"]
+  static targets = ["item", "total", "newItemName", "newItemValue"]
   static values = { total: Number }
 
   connect() {
@@ -21,8 +21,16 @@ export default class extends Controller {
     newCell.setAttribute("data-totalisr-target", "item")
   }
 
-  addItem({ params: { itemName, itemValue } }) {
-    console.log(itemName, itemValue)
+  addItem(event) {
+    var itemName = this.newItemNameTarget.value
+    var itemValue = this.newItemValueTarget.value
+
+    this.newItemNameTarget.value = ""
+    this.newItemValueTarget.value = ""
+
+    this.addItemI(itemName, itemValue)
+  }
+  addItemB({ params: { itemName, itemValue } }) {
     this.addItemI(itemName, itemValue)
   }
 

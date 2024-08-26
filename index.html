@@ -13,6 +13,7 @@
                 <tr>
                     <th>Item</th>
                     <th>Price</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,11 +22,16 @@
                 <tr>
                     <td>Total</td>
                     <td data-totalisr-target="total">...</td>
+                    <td><input type="button" value="Recalculate" data-action="click->totalisr#calculate"></td>
                 </tr>
                 <tr>
-                    <td><input type="button" value="Calculate" data-action="click->totalisr#calculate"></td>
+                    <td><input type="text" name="newItemName" data-totalisr-target="newItemName"> </td>
+                    <td><input type="text" name="newItemValue" data-totalisr-target="newItemValue"></td>
+                    <td><input type="button" value="Add Item" data-action="click->totalisr#addItem"></td>
+                </tr>
+                <tr>
                     <td><input type="button" value="Add Beer" data-totalisr-item-name-param="Beer"
-                            data-totalisr-item-value-param="-50" data-action="click->totalisr#addItem"></td>
+                            data-totalisr-item-value-param="-50" data-action="click->totalisr#addItemB"></td>
                 </tr>
         </table>
 
