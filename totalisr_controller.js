@@ -12,19 +12,30 @@ export default class extends Controller {
     newCell = newRow.insertCell(1)
     newCell.textContent = itemValue
     newCell.setAttribute("data-totalisr-target", "item")
+    if (isNaN(itemValue)) {
+      newCell.style.color = "red"
+    }
     newCell = newRow.insertCell(2)
-    newCell.innerHTML = "<button data-action='click->totalisr#removeItem'>Remove</button> <button data-action='click->totalisr#editItem'>Edit</button>"
+    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#removeItem'>Remove</button>")
+    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#editItem'>Edit</button>")
+    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#moveItemUp'>Up</button>")
+    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#moveItemDown'>Down</button>")
+
     this.calculate()
   }
 
   addNewItem(event) {
     var itemName = this.newItemNameTarget.value
     var itemValue = this.newItemValueTarget.value
+    if (isNaN(itemValue)) {
+      this.newItemValueTarget.style.color = "red"
+    } else {
 
-    this.newItemNameTarget.value = ""
-    this.newItemValueTarget.value = ""
+      this.newItemNameTarget.value = ""
+      this.newItemValueTarget.value = ""
 
-    this.addItemToTable(itemName, itemValue)
+      this.addItemToTable(itemName, itemValue)
+    }
   }
 
   test_data() {
@@ -36,7 +47,9 @@ export default class extends Controller {
   calculate() {
     this.totalValue = 0
     this.itemTargets.forEach((item, index) => {
-      this.totalValue += Number(item.textContent)
+      if (!isNaN(item.textContent)) {
+        this.totalValue += Number(item.textContent)
+      }
     })
     this.totalTarget.textContent = `${this.totalValue}`
   }
@@ -57,4 +70,23 @@ export default class extends Controller {
 
     this.calculate()
   }
+
+  moveItemUp(event) {
+    var row = event.srcElement.parentElement.parentElement
+    var previousRow = row.previousElementSibling
+    if (previousRow) {
+      row.parentNode.insertBefore(row, previousRow)
+    }
+    this.calculate()
+  }
+
+  moveItemDown(event) {
+    var row = event.srcElement.parentElement.parentElement
+    var nextRow = row.nextElementSibling
+    if (nextRow) {
+      row.parentNode.insertBefore(nextRow, row)
+    }
+    this.calculate()
+  }
+
 }
