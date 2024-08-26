@@ -6,9 +6,6 @@
 </head>
 
 <body>
-
-    <!-- <img src="CalanderExport.png" alt="Marvelous Mancub Logo" id="logo"> -->
-
     <div class="tool">
         <h1>Add this up...</h1>
         <table data-controller="totalisr" data-totalisr-total-value="0">
@@ -19,23 +16,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Budget</td>
-                    <td data-totalisr-target="item">1000</td>
-                </tr>
-                <tr>
-                    <td>Flights</td>
-                    <td data-totalisr-target="item">-250</td>
-                </tr>
-                <tr>
-                    <td>Accomodation</td>
-                    <td data-totalisr-target="item">-450</td>
-                </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td>Total</td>
                     <td data-totalisr-target="total">...</td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="Calculate" data-action="click->totalisr#calculate"></td>
+                    <td><input type="button" value="Add Beer" data-totalisr-item-name-param="Beer"
+                            data-totalisr-item-value-param="-50" data-action="click->totalisr#addItem"></td>
                 </tr>
         </table>
 
