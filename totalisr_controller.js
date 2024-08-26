@@ -16,10 +16,10 @@ export default class extends Controller {
       newCell.style.color = "red"
     }
     newCell = newRow.insertCell(2)
-    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#removeItem'>Remove</button>")
-    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#editItem'>Edit</button>")
-    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#moveItemUp'>Up</button>")
-    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#moveItemDown'>Down</button>")
+    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#editItem'>✍️</button>")
+    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#moveItemUp'>⬆️</button>")
+    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#moveItemDown'>⬇️</button>")
+    newCell.insertAdjacentHTML("beforeend", "<button data-action='click->totalisr#removeItem'>🗑️</button>")
 
     this.calculate()
   }
