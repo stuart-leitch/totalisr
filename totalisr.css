@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: hsl(0, 0%, 98%);
+  color: #333;
+  font: 100% / normal sans-serif;
+}
+
+main {
+  margin: 0 auto;
+  padding: 4rem;
+  width: 90%;
+  max-width: 60rem;
+}
+
+h1 {
+  padding-top: 1rem;
+  padding-right: 5rem;
+  font-size: 2rem;
+  color: green
+}
+
+form {
+  margin: 2rem 0;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: hsl(0, 0%, 100%);
+  border: 4px solid hsl(0, 0%, 90%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  font-size: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+input[type=number],
+input[type=date] {
+  padding: 0.5rem;
+  border: 1px solid hsl(0, 0%, 90%);
+  border-radius: 5rem;
+  font-size: 2rem;
+  color: blue;
+  text-align: center;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+button {
+  padding: 0.5rem;
+  border: 3px solid blueviolet;
+  border-radius: 5rem;
+  font-size: 2rem;
+  background-color: yellow;
+  cursor: pointer;
+  color: blueviolet;
+}
+
+.tool {
+  padding: 0.5rem;
+  border: 5px solid hsl(0, 0%, 90%);
+  border-radius: 5rem;
+  font-size: 2rem;
+  background-color: lightblue;
+  cursor: pointer;
+  color: blueviolet;
+}
+
+.output {
+  padding: 0.5rem;
+  font-size: 2rem;
+  background-color: yellow;
+  cursor: pointer;
+  color: blueviolet;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-radius: 10px;
+}
