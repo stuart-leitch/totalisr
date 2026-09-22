@@ -135,7 +135,7 @@ struct ItemRow: View {
             .monospacedDigit()
             .lineLimit(1)
             .minimumScaleFactor(0.7)
-            .foregroundStyle(runningBalance < 0 ? Color.red : Color.secondary)
+            .foregroundStyle(list.warnsOnNegative && runningBalance < 0 ? Color.red : Color.secondary)
             .frame(width: layout.amountColumnWidth, alignment: .trailing)
     }
 

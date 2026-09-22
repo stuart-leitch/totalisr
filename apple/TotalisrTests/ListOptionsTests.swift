@@ -54,6 +54,17 @@ struct ListOptionsTests {
         }
     }
 
+    /// Red means "you have overspent". A list counting up has no budget to overspend, so
+    /// the same colour there would be crying wolf.
+    @Test("Only a count-down list flags negatives")
+    func negativeWarning() {
+        list.countsDown = true
+        #expect(list.warnsOnNegative)
+
+        list.countsDown = false
+        #expect(!list.warnsOnNegative)
+    }
+
     @Test("A financial list formats as currency")
     func financialFormatting() {
         let formatted = list.formatted(100_050)

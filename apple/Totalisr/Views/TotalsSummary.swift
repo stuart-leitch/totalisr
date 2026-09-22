@@ -27,7 +27,7 @@ struct TotalsSummary: View {
             Text(list.formatted(minorUnits))
                 .font(emphasis ? .headline : .subheadline)
                 .monospacedDigit()
-                .foregroundStyle(minorUnits < 0 ? Color.red : Color.primary)
+                .foregroundStyle(list.warnsOnNegative && minorUnits < 0 ? Color.red : Color.primary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)
         }

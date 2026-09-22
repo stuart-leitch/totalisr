@@ -25,7 +25,7 @@ right target automatically — no project edit, no merge conflict.
 
     xcodebuild test -project Totalisr.xcodeproj -scheme Totalisr -destination 'platform=macOS'
 
-57 tests in `TotalisrTests/`, using Swift Testing. They cover the two things most likely
+69 tests in `TotalisrTests/`, using Swift Testing. They cover the two things most likely
 to break silently as features land: amount parsing (`MoneyTests.swift`) and the
 list/ordering/total behaviour (`ModelTests.swift`).
 
@@ -50,6 +50,8 @@ Two notes for writing more:
       Models/TotalList.swift   a named list: currency, totals, ordering
       Models/Item.swift        one line: label, amount, note, date, paid
       Support/Quantity.swift   minor-unit storage, parsing, formatting
+      Support/ListDocument.swift  the .totalisr file format, export and import
+      Support/ListTransfer.swift  what ShareLink hands to AirDrop
       Views/RootView.swift     NavigationSplitView: lists | items
       Views/ListsSidebar.swift the list of lists
       Models/AmountDirection.swift  which way an entry moves the total
@@ -90,6 +92,17 @@ the totals are computed from. See `Models/AmountDirection.swift`.
 currency. A list of hours or kilometres needs the same two directions with different
 words, and that is the only thing it would have to override.
 
+**Sharing is a file, not sync.** A list exports as a readable JSON `.totalisr` file and
+travels by AirDrop or anything else the share sheet offers. Import **replaces** by
+`TotalList.externalID` rather than merging — merging two divergent orderings without
+per-item identity is guesswork, and guessing with someone's numbers is worse than saying
+plainly that the file wins. The confirmation alert exists because that is destructive.
+
+**`externalID` exists because `persistentModelID` cannot leave the device.** It is local
+to one store, so a receiving device could never recognise a list it had seen before. Not
+`@Attribute(.unique)`, because CloudKit forbids unique constraints; import fetches on it
+instead.
+
 **Order is explicit.** SwiftData makes no promise about the order of a to-many
 relationship, so `Item.sortIndex` is the source of truth and `TotalList.orderedItems` is
 the only way views read items.
@@ -115,5 +128,10 @@ masks it); macOS gets the rounded shape and its margin baked in, at all ten size
   falls back to the stacked layout.
 - Nothing keeps the Xcode project's own wiring honest — `TEST_HOST`, asset compilation,
   signing. `⌘U` is the check on that.
+- Import replaces whole lists. Per-item merging would need per-item identities, which
+  `ItemPayload` deliberately does not carry.
+- AirDrop itself, the `.totalisr` type registration and `onOpenURL` are unverified here —
+  they need two real devices. Everything below the UI (encode, decode, replace-or-create)
+  is covered by tests.
 - No receipt capture, attachments, or anything resembling an accounting package. The tool
   totals a list of numbers.

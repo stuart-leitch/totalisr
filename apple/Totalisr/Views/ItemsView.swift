@@ -45,7 +45,7 @@ struct ItemsView: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             VStack(spacing: 0) {
                 TotalsSummary(list: list)
-                QuickAddBar(list: list)
+                QuickAddBar(list: list, compact: layout != .wideColumns)
             }
             .background(.bar)
         }
@@ -55,6 +55,13 @@ struct ItemsView: View {
             // rows are draggable without it.
             ToolbarItem(placement: .topBarTrailing) { EditButton() }
             #endif
+            ToolbarItem {
+                if let shared = try? SharedList(exporting: list) {
+                    ShareLink(item: shared, preview: SharePreview(list.displayName)) {
+                        Label("Share List", systemImage: "square.and.arrow.up")
+                    }
+                }
+            }
             ToolbarItem {
                 Menu {
                     Toggle("Show Running Balance", isOn: $showRunningBalance)

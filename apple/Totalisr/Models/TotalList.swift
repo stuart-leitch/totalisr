@@ -11,6 +11,14 @@ import SwiftData
 final class TotalList {
     var name: String = ""
     var createdAt: Date = Date.now
+
+    /// A stable identity that survives leaving this device.
+    ///
+    /// `persistentModelID` is local to one store and is no use for recognising a list
+    /// that arrived from somewhere else, so shared files carry this instead. Not
+    /// `@Attribute(.unique)` — CloudKit forbids unique constraints — so import looks it
+    /// up by fetch rather than relying on the store to enforce it.
+    var externalID: UUID = UUID()
     var currencyCode: String = Quantity.localCurrencyCode
 
     /// Financial lists format as currency; the rest format as plain numbers with
@@ -34,6 +42,7 @@ final class TotalList {
     init(name: String = "", currencyCode: String? = nil) {
         self.name = name
         self.createdAt = .now
+        self.externalID = UUID()
         self.currencyCode = currencyCode ?? Quantity.localCurrencyCode
         self.items = []
     }
@@ -70,6 +79,15 @@ final class TotalList {
     /// The direction a new item starts on.
     var defaultDirection: AmountDirection {
         countsDown ? .subtracts : .adds
+    }
+
+    /// Whether a negative figure is worth flagging in red.
+    ///
+    /// On a list counting down from a budget, crossing zero means overspent — the one
+    /// thing you want to see coming. On a list counting up there is no budget to exceed,
+    /// so a negative running total is just a number, and colouring it red cries wolf.
+    var warnsOnNegative: Bool {
+        countsDown
     }
 
     /// What `Item.isDone` is called in the UI. The flag means "settled"; a financial
