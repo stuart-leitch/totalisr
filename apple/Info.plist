@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!-- LSSupportsOpeningDocumentsInPlace is deliberately absent, and should stay that
+	     way. Its default on iOS is already what this app wants: files arrive as a copy
+	     in the app's Inbox, which is right because import reads the contents into
+	     SwiftData and never writes back. Setting it to NO to silence iOS's advisory
+	     warning makes macOS complain that NO is not a supported value, and one target
+	     that builds for both platforms cannot satisfy both. The remaining iOS warning
+	     ("doesn't declare whether it supports opening them in place") is informational
+	     and describes behaviour that is already correct. -->
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -19,8 +27,6 @@
 	</array>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<false/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

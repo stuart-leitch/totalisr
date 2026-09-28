@@ -4,16 +4,14 @@
 <dict>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
-	<key>com.apple.security.files.user-selected.read-only</key>
-	<true/>
-	<!-- iCloud sync: add the keys below (and the matching iOS entitlements file) once a
-	     paid Apple Developer account exists. See apple/ICLOUD.md.
+
+	<!-- AirDrop goes over the network. A sandboxed app that does not declare this does
+	     not get an error: the share sheet quietly leaves AirDrop out. Nothing to do with
+	     iCloud, despite living next door to it below. -->
 	<key>com.apple.security.network.client</key>
 	<true/>
-	<key>com.apple.developer.icloud-services</key>
-	<array><string>CloudKit</string></array>
-	<key>com.apple.developer.icloud-container-identifiers</key>
-	<array><string>iCloud.com.stuartleitch.Totalisr</string></array>
-	-->
+
+	<key>com.apple.security.files.user-selected.read-only</key>
+	<true/>
 </dict>
 </plist>

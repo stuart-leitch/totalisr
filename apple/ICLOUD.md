@@ -16,8 +16,21 @@ one feature you asked for that the free tier will not do.
    `iCloud.com.stuartleitch.Totalisr`.
 3. **+ Capability** → **Background Modes** → tick **Remote notifications**, so other
    devices' changes arrive without reopening the app.
-4. Xcode writes an entitlements file for iOS. For macOS, uncomment the iCloud block in
-   `Totalisr/Totalisr-macOS.entitlements` (the sandbox needs `network.client` too).
+4. Xcode writes an entitlements file for iOS. For macOS, add these to
+   `Totalisr/Totalisr-macOS.entitlements` alongside what is already there:
+
+   ```xml
+   <key>com.apple.developer.icloud-services</key>
+   <array><string>CloudKit</string></array>
+   <key>com.apple.developer.icloud-container-identifiers</key>
+   <array><string>iCloud.com.stuartleitch.Totalisr</string></array>
+   ```
+
+   `com.apple.security.network.client` is already set — AirDrop needs it regardless.
+   They used to be commented out in the entitlements file together, which is how the
+   network key got disabled by accident and AirDrop silently vanished from the Mac's
+   share sheet. Pending entitlements belong in documentation, not in a comment inside
+   the file that grants them.
 5. Make the container explicit in `TotalisrApp.swift`:
 
    ```swift
